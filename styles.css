@@ -1,0 +1,15 @@
+h1 {
+  text-decoration: underline;
+}
+
+html,
+body,
+#container {
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+}
+#map {
+  width: auto;
+  height: 100%;
+}
