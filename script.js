@@ -48,13 +48,13 @@ function getCoordFromDistanceBearing(startcoods, dist, bearing) {
   var lon1 = startcoods.lng * (Math.PI / 180);
   var lat2 = Math.asin(
     Math.sin(lat1) * Math.cos(dist / R) +
-      Math.cos(lat1) * Math.sin(dist / R) * Math.cos(bearing * (Math.PI / 180))
+      Math.cos(lat1) * Math.sin(dist / R) * Math.cos(bearing * (Math.PI / 180)),
   );
   var lon2 =
     lon1 +
     Math.atan2(
       Math.sin(bearing * (Math.PI / 180)) * Math.sin(dist / R) * Math.cos(lat1),
-      Math.cos(dist / R) - Math.sin(lat1) * Math.sin(lat2)
+      Math.cos(dist / R) - Math.sin(lat1) * Math.sin(lat2),
     );
   return {
     lat: (lat2 * 180) / Math.PI,
@@ -71,7 +71,7 @@ function debugOutput(layer) {
 function resetLayers() {
   stationLayer.clearLayers();
   maxLayer.removeFrom(map);
-  aveLayer.removeFrom(map);
+  aveLayer.addTo(map);
   circleLayer.clearLayers();
   markerLayer.addTo(map);
 }
@@ -138,6 +138,7 @@ $(document).ready(function () {
 
   stationLayer.addTo(map);
   circleLayer.addTo(map);
+  aveLayer.addTo(map);
 
   // Set up the right-click to create and display the coverage popup
 
@@ -149,11 +150,6 @@ $(document).ready(function () {
       .addTo(map)
       .openOn(map);
   });
-
-
-
-
-
 
   // Load the JSON data
   $.getJSON(JSONURL, function (data) {
